@@ -64,17 +64,20 @@ def obter_certificado(vero, N):
     certificado = np.append(certificado, 0)
     return certificado
 
+def base(c_A, j):
+    return (np.isclose(c_A[0, j], 0) and np.sum(c_A[1:, j] == 1) == 1 
+            and np.all(np.logical_or(c_A[1:, j] == 0, c_A[1:, j] == 1)))
+
 def obter_solucao_otima(c_A, vo_b, M):
     solucao_otima = np.array([0.] * M)
     for j in range(M):
-        x_j = None
-        if (np.isclose(c_A[0, j], 0) and np.sum(c_A[1:, j] == 1) == 1 
-            and np.all(np.logical_or(c_A[1:, j] == 0, c_A[1:, j] == 1))):
-            for i in range(1, c_A.shape[0]):
-                if c_A[i, j] == 1:
-                    x_j = vo_b[i]
-        if x_j:
-            solucao_otima[j] = x_j
+        if not base(c_A, j): continue
+
+        for i in range(1, c_A.shape[0]):
+            if c_A[i, j] == 1:
+                x_j = vo_b[i]
+        solucao_otima[j] = x_j
+        
     return solucao_otima
 
 def simplex(vero, c_A, vo_b):
