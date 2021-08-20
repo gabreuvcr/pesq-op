@@ -29,7 +29,9 @@ def imprime(arr):
         print(f"{int(i)}", end=' ')
     print()
 
-def imprime_solucao(c_A, vo_b, certificado, M): 
-    imprime([vo_b[0]])
-    imprime(obter_solucao_otima(c_A, vo_b, M))
+def imprime_solucao(c_A, vo_b, certificado, M):
+    valor_otimo = [vo_b[0]]
+    solucao_otima = obter_solucao_otima(c_A, vo_b, M) 
+    imprime(valor_otimo)
+    imprime(solucao_otima)
     imprime(certificado)
