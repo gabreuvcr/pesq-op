@@ -37,8 +37,9 @@ def valor_minimo(A, custos_subconj, ponto):
 
 def cobertura_por_conjuntos(num_elem, num_subconj, custos_subconj, A):
     y, x = np.zeros(num_subconj), np.zeros(num_elem)
-    while ponto_descoberto(y, A, num_elem) != None:
+    while True:
         ponto = ponto_descoberto(y, A, num_elem)
+        if ponto is None: break
         valor, subconj = valor_minimo(A, custos_subconj, ponto)
         y[subconj] = 1
         x[ponto] = valor
